@@ -36,24 +36,35 @@ function animate()
 	
 	context.clearRect(0,0,canvas.width, canvas.height);	
 	
-	/*-----------This function move the player-----------*/
-	//w and s move forward and backward
-	//a and d rotate the triangle
+	
+	
+	
 	angularMovement();
 	
-	//-------------------------------------------------------------------------------------------------------------------------
-	//------------------------------------------------------INSTRUCTIONS-------------------------------------------------------
-	//-------------------------------------------------------------------------------------------------------------------------
 	
-	//--------Make the blue pearl move to the player when it's within 300 pixels of the player.------
-	//--------If the pearl hits the player's x and y coordinates move it off screen.-----------------
+	var dx = player.x - pearl.x;
+	var dy = player.y - pearl.y;
+
+	var distance = Math.sqrt(dx * dx + dy * dy);
+
 	
-	//--------------------------------------------------------------------------------------------------------------------------
-	//------------------------------------------------------END OF INSTRUCTIONS-------------------------------------------------
-	//--------------------------------------------------------------------------------------------------------------------------
+	if(distance < 300)
+	{
+  	
+   		pearl.x += dx * 0.03;
+    	pearl.y += dy * 0.03;
+	}
+
+	// If pearl touches player
+	if(pearl.hitTestObject(player))
+	{
+    	// Move pearl off screen
+    	pearl.x = -1000;
+    	pearl.y = -1000;
+	}
 	
-	player.drawTriangle();
-	pearl.drawCircle();
+		player.drawTriangle();
+		pearl.drawCircle();
 }
 
 function angularMovement()
